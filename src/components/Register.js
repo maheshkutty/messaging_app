@@ -3,7 +3,10 @@ import { Box, Grid, TextField, Stack, Button } from "@mui/material";
 import { useForm, yu } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-
+import { auth, db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { useNavigate } from "react-router-dom"
 
 const schema = yup.object({
   name: yup.string().required("Name is required"),
@@ -15,9 +18,21 @@ function Register() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
+  const navigate = useNavigate();
 
-  const onSignUp = data => {
-    console.log(data)
+  const onSignUp = async ({ name, email, password }) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const date = new Date().getTime();
+      await setDoc(doc(db, "users", res.user.uid), {
+        uid: res.user.uid,
+        name,
+        email
+      });
+      navigate("/")
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
