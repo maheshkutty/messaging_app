@@ -1,12 +1,18 @@
 import React from "react";
 import { List, ListItem, ListItemText, Button } from "@mui/material";
 
-function Solved() {
+function Solved({ processReq, setChats }) {
+  const getChats = (item) => {
+    setChats(item.messages);
+  }
+
   return (
     <List>
-      <ListItem>
-        <ListItemText primary="Bank account issue" secondary="Jan 14, 2022" />
-      </ListItem>
+      {processReq.map((item) =>
+        <ListItem onClick={getChats} style={{ cursor: "pointer" }}>
+          <ListItemText primary={item.query} secondary={item.startTime.toMillis().toString()} />
+        </ListItem>
+      )}
     </List>
   )
 }

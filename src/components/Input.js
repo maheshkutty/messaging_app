@@ -17,13 +17,24 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
-
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
   const handleSend = async () => {
-    
+    if (text != "") {
+      let payload = {
+        senderId: currentUser.uid,
+        text,
+        date: Timestamp.now(),
+        id: uuid()
+      }
+      await updateDoc(doc(db, "session", currentUser.uid, "chats", data.chatId), {
+        messages: arrayUnion(payload)
+      })
+      setText("");
+    }
   };
+
   return (
     <div className="input">
       <input
