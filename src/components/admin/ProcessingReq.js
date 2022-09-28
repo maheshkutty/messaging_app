@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react"
 import { Grid } from "@mui/material"
-import Chats from "../Chats";
+import Chats from "./Chats";
 import Solved from "./Solved";
 import AdminPanel from ".";
 import { CustReqContext } from "../../context/CustReqContext";
@@ -11,6 +11,7 @@ function ProcessingReq() {
   const { currentUser } = useContext(AuthContext);
   const [processReq, setProcessReq] = useState([]);
   const [chats, setChats] = useState([]);
+  const [userId, setUserId] = useState("");
 
   const getAcceptedReq = () => {
     let temp = [];
@@ -24,15 +25,15 @@ function ProcessingReq() {
 
   useEffect(() => {
     getAcceptedReq();
-  }, [data])
+  }, [data]);
 
   return (
     <AdminPanel>
-      <Grid item xs="3"> 
-        <Solved processReq={processReq} setChats={setChats} />
+      <Grid item xs="3" sx={{ height: "100%", background:"white" }}>
+        <Solved processReq={processReq} setUserId={setUserId} />
       </Grid>
-      <Grid item xs="9" sx={{ height: "100%" }}>
-        <Chats />
+      <Grid item xs="9" sx={{ height: "100%", background:"white" }}>
+        <Chats userId={userId} />
       </Grid>
     </AdminPanel>
   )

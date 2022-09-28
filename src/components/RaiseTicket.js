@@ -1,14 +1,16 @@
 import React, { useEffect, useContext, useState } from "react";
-import { List, ListItem, ListItemText, Button } from "@mui/material";
+import { List, ListItem, ListItemText, Button, Divider, Badge } from "@mui/material";
 import RaiseTicketForm from "./RaiseTicketForm";
 import { getDocs, serverTimestamp, setDoc, updateDoc, collection, doc, addDoc } from "firebase/firestore"
-import { AuthContext  } from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import { db } from "../firebase"
 import { ChatContext } from '../context/ChatContext';
+import { margin } from "@mui/system";
+import StatusInd from "./StatusInd";
 
 function RaiseTicket() {
   const { currentUser } = useContext(AuthContext);
-  const { dispatch } = useContext(ChatContext);
+  const { dispatch, data } = useContext(ChatContext);
   const [tickets, setTickets] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -37,14 +39,24 @@ function RaiseTicket() {
 
   return (
     <>
-      <List>
+      <div className="chats">
+        <div className="chatInfo">
+          <p style={{ textAlign: "center", fontWeight: "bold", borderRight: "2px solid black" }}>Your Tickets</p>
+        </div>
+      </div>
+      <List sx={{paddingTop:0}}>
         {tickets.map((item) =>
-          <ListItem key={item.id} onClick={() => selectTickets(item)} style={{cursor:"pointer"}}>
+          <ListItem key={item.id} onClick={() => selectTickets(item)} className={`listItemStyle ${data.chatId === item.id && "listItemStyleSelect"}`}>
             <ListItemText primary={item.query} secondary={item.startTime.toMillis().toString()} />
+            {item.resolved == 0 ? <StatusInd color="orange" /> : <StatusInd color="#42ba96" />}
+
           </ListItem>
         )}
         <ListItem>
-          <Button fullWidth variant="outlined" onClick={handleClickOpen}>
+          <Button style={{
+            borderRadius: 20,
+            backgroundColor: "#007bff",
+          }} fullWidth variant="contained" onClick={handleClickOpen}>
             Raise Ticket
           </Button>
         </ListItem>

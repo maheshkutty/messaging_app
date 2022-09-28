@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import Img from "../img/img.png";
-import Attach from "../img/attach.png";
-import { AuthContext } from "../context/AuthContext";
-import { ChatContext } from "../context/ChatContext";
+import Img from "../../img/img.png";
+import Attach from "../../img/attach.png";
+import { AuthContext } from "../../context/AuthContext";
+import { ChatContext } from "../../context/ChatContext";
 import {
   arrayUnion,
   doc,
@@ -10,12 +10,11 @@ import {
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
-import { db, storage } from "../firebase";
+import { db, storage } from "../../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { TextField } from "@mui/material";
 
-const Input = () => {
+const Input = ({ userId }) => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
   const { currentUser } = useContext(AuthContext);
@@ -29,7 +28,10 @@ const Input = () => {
         date: Timestamp.now(),
         id: uuid()
       }
-      await updateDoc(doc(db, "session", currentUser.uid, "chats", data.chatId), {
+      console.log(payload);
+      console.log(data.chatId);
+      console.log(userId);
+      await updateDoc(doc(db, "session", userId, "chats", data.chatId), {
         messages: arrayUnion(payload)
       })
       setText("");
@@ -38,9 +40,8 @@ const Input = () => {
 
   return (
     <div className="input">
-      <TextField
+      <input
         type="text"
-        fullWidth
         placeholder="Type something..."
         onChange={(e) => setText(e.target.value)}
         value={text}
@@ -48,9 +49,8 @@ const Input = () => {
       <div className="send">
         <img src={Attach} alt="" />
         <input
-          className="chatinput"
           type="file"
-          style={{ display: "none"}}
+          style={{ display: "none" }}
           id="file"
           onChange={(e) => setImg(e.target.files[0])}
         />

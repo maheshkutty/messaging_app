@@ -12,16 +12,18 @@ const Messages = () => {
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    const unSub = onSnapshot(doc(db, "session", currentUser.uid, "chats", data.chatId), (doc) => {
-      if (doc.exists()) {
-        console.log(doc.data().messages)
-        setMessages(doc.data().messages);
-      }
-    });
-
-    return () => {
-      unSub();
-    };
+    console.log(currentUser, data.chatId)
+    if (currentUser.uid != undefined) {
+      const unSub = onSnapshot(doc(db, "session", currentUser.uid, "chats", data.chatId), (doc) => {
+        if (doc.exists()) {
+          console.log(doc.data().messages)
+          setMessages(doc.data().messages);
+        }
+      });
+      return () => {
+        unSub();
+      };
+    }
   }, [data.chatId]);
 
   return (

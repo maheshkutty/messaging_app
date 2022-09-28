@@ -7,6 +7,7 @@ import { auth, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { useNavigate } from "react-router-dom"
+import Header from "./Header";
 
 const schema = yup.object({
   name: yup.string().required("Name is required"),
@@ -36,59 +37,63 @@ function Register() {
   }
 
   return (
-    <Grid
-      height="100vh"
-      container
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Grid item xs={3}>
-        <form onSubmit={handleSubmit(onSignUp)}>
-          <Stack
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={1}
-          >
-            <TextField
-              id="name"
-              fullWidth
-              label="Name"
-              variant="outlined"
-              helperText={errors.name?.message}
-              error={errors.name ? true : false}
-              {...register("name", { required: true })}
-            />
-            <TextField
-              id="email"
-              fullWidth
-              label="Email"
-              onClick={() => {
-                console.log(errors.email)
-              }}
-              error={errors.email ? true : false}
-              variant="outlined" {...register("email", { required: true })}
-              helperText={errors.email?.message}
-              {...register("email", { required: true })}
-            />
-            <TextField
-              id="pass"
-              fullWidth
-              type="password"
-              error={errors.pass ? true : false}
-              label="Password"
-              helperText={errors.pass?.message}
-              variant="outlined"
-              {...register("pass", { required: true })}
-            />
-            <Button type="submit" fullWidth variant="contained">
-              Register
-            </Button>
-          </Stack>
-        </form>
-      </Grid>
-    </Grid >
+    <>
+      <Header />
+      <Grid
+        sx={{ marginTop: 10 }}
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item xs={3}>
+          <h1 style={{ textAlign: "center" }}>User Registartion</h1>
+          <form onSubmit={handleSubmit(onSignUp)}>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={1}
+            >
+              <TextField
+                id="name"
+                fullWidth
+                label="Name"
+                variant="outlined"
+                helperText={errors.name?.message}
+                error={errors.name ? true : false}
+                {...register("name", { required: true })}
+              />
+              <TextField
+                id="email"
+                fullWidth
+                label="Email"
+                onClick={() => {
+                  console.log(errors.email)
+                }}
+                error={errors.email ? true : false}
+                variant="outlined" {...register("email", { required: true })}
+                helperText={errors.email?.message}
+                {...register("email", { required: true })}
+              />
+              <TextField
+                id="pass"
+                fullWidth
+                type="password"
+                error={errors.pass ? true : false}
+                label="Password"
+                helperText={errors.pass?.message}
+                variant="outlined"
+                {...register("pass", { required: true })}
+              />
+              <Button type="submit" fullWidth variant="contained">
+                Register
+              </Button>
+            </Stack>
+          </form>
+        </Grid>
+      </Grid >
+    </>
   )
 }
 

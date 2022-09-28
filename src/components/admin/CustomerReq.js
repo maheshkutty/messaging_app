@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react"
 import { onSnapshot, doc, collection, updateDoc } from "firebase/firestore"
-import { Button, List, ListItem, ListItemText, Grid, Typography } from "@mui/material"
+import { Button, List, ListItem, ListItemText, Grid, Typography, Divider } from "@mui/material"
 import { CustReqContext } from "../../context/CustReqContext"
 import { db } from "../../firebase";
 import Messages from "../Messages";
@@ -60,22 +60,30 @@ function CustomerReq() {
 
   return (
     <AdminPanel>
-      <Grid item xs="4" sx={{ height: "100%" }}>
+      <Grid item xs="6" sx={{ height: "100%", background: "rgba(255,255,255,1)", marginTop: 2, borderRadius: 2 }}>
+        <h1 style={{textAlign:"center"}}>All Customer Tickets</h1>
+        <Divider variant="middle" />
         <List>
           {custReq.map((item) =>
-            <ListItem key={item.id} onClick={() => acceptReq(item)}>
-              <ListItemText primary="User 201" secondary={
-                <>
-                  <Typography component="span"
-                    variant="body2">{item.query}</Typography>
-                  <Typography
-                    variant="body2">{item.startTime.toMillis().toString()}</Typography>
-                </>
-              } />
-              <Button size="small" variant="contained">
-                Accept
-              </Button>
-            </ListItem>
+            <>
+              <ListItem className="listItemStyle" key={item.id} onClick={() => acceptReq(item)}>
+                <ListItemText primary="User 201" secondary={
+                  <>
+                    <Typography component="span"
+                      variant="body2">{item.query}</Typography>
+                    <Typography
+                      variant="body2">{item.startTime.toMillis().toString()}</Typography>
+                  </>
+                } />
+                <Button style={{
+                  borderRadius: 5,
+                  backgroundColor: "#007bff",
+                }} size="small" variant="contained">
+                  Accept
+                </Button>
+              </ListItem>
+              <Divider variant="middle" />
+            </>
           )}
         </List>
       </Grid>

@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore";
+import Header from "./Header";
 
 const schema = yup.object({
   email: yup.string().email("Enter Valid Email").required("Email is required"),
@@ -47,49 +48,55 @@ function Login() {
   }
 
   return (
-    <Grid
-      height="100vh"
-      container
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Grid item xs={3}>
-        <form onSubmit={handleSubmit(onSignIn)}>
-          <Stack
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={1}
-          >
-            <TextField
-              id="email"
-              fullWidth
-              label="Email"
-              error={errors.email ? true : false}
-              variant="outlined" {...register("email", { required: true })}
-              helperText={errors.email?.message}
-              {...register("email", { required: true })}
-            />
-            <TextField
-              id="pass"
-              fullWidth
-              type="password"
-              error={errors.pass ? true : false}
-              label="Password"
-              helperText={errors.pass?.message}
-              variant="outlined"
-              {...register("pass", { required: true })}
-            />
-            <FormControlLabel control={<Checkbox checked={chkAdmin} onChange={onChkAdmin} />} label="Login as admin" />
-            <Button type="submit" fullWidth variant="contained">
-              Login
-            </Button>
-            {err && <Typography>Something went wrong</Typography>}
-          </Stack>
-        </form>
-      </Grid>
-    </Grid >
+    <>
+      <Header />
+      <Grid
+        sx={{ marginTop: 10 }}
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item xs={3}>
+          <form onSubmit={handleSubmit(onSignIn)}>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={1}
+            >
+              <TextField
+                id="email"
+                fullWidth
+                label="Email"
+                error={errors.email ? true : false}
+                variant="outlined" {...register("email", { required: true })}
+                helperText={errors.email?.message}
+                {...register("email", { required: true })}
+              />
+              <TextField
+                id="pass"
+                fullWidth
+                type="password"
+                error={errors.pass ? true : false}
+                label="Password"
+                helperText={errors.pass?.message}
+                variant="outlined"
+                {...register("pass", { required: true })}
+              />
+              <FormControlLabel control={<Checkbox checked={chkAdmin} onChange={onChkAdmin} />} label="Login as admin" />
+              <Button style={{
+                borderRadius: 20,
+                backgroundColor: "#007bff",
+              }} type="submit" fullWidth variant="contained">
+                Login
+              </Button>
+              {err && <Typography>Something went wrong</Typography>}
+            </Stack>
+          </form>
+        </Grid>
+      </Grid >
+    </>
   )
 }
 

@@ -21,10 +21,12 @@ export default function RaiseTicketForm({ open, setOpen }) {
 			endTime: "",
 			userId: currentUser.uid,
 			resolved: 0,
-			adminId: ""
+			adminId: "",
+			messages: []
 		}
 		console.log(payload)
 		await addDoc(collection(db, "session", currentUser.uid, "chats"), payload)
+		handleClose();
 	}
 
 	const handleClose = () => {

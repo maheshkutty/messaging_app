@@ -1,5 +1,10 @@
-body{
-    height: 100vh;
+body {
+  height: 100vh;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 @mixin mobile {
@@ -55,9 +60,6 @@ body{
         border: none;
         width: 250px;
         border-bottom: 1px solid #a7bcff;
-        &::placeholder {
-          color: rgb(175, 175, 175);
-        }
       }
 
       button {
@@ -123,10 +125,6 @@ body{
             border: none;
             color: white;
             outline: none;
-
-            &::placeholder {
-              color: lightgray;
-            }
           }
         }
       }
@@ -166,15 +164,17 @@ body{
 }
 
 .chat {
-  flex: 5;
+  flex: 2;
+
   .chatInfo {
-    height: 50px;
-    background-color: #5d5b8d;
+    height: 30px;
+    background-color: #fefeff;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    color: lightgray;
+    color: #212e3a;
+    text-transform: capitalize;
   }
 
   .chatIcons {
@@ -188,10 +188,11 @@ body{
   }
 
   .messages {
-    background-color: #ddddf7;
+    background-color: #ecf5f9;
     padding: 10px;
     overflow: scroll;
     height: calc(100% - 250px);
+    overflow-x: hidden;
 
     .message {
       display: flex;
@@ -256,12 +257,8 @@ body{
       width: 100%;
       border: none;
       outline: none;
-      color: #2f2d52;
+      color: #007bff;
       font-size: 18px;
-
-      &::placeholder {
-        color: lightgray;
-      }
     }
 
     .send {
@@ -288,11 +285,26 @@ body{
 .navbar {
   display: flex;
   align-items: center;
-  background-color: #2f2d52;
   justify-content: space-between;
-  color: #ddddf7;
-  height: 60px;
+  color: #212e3a;
+  background-color: #007bff;
+  height: 30px;
   padding: 10px;
+
+  .linkButton {
+    background-color: #5d5b8d;
+    color: #ddddf7;
+    font-size: 12px;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    @include tablet {
+      position: absolute;
+      bottom: 10px;
+    }
+  }
 
   .logo {
     font-weight: bold;
@@ -316,8 +328,10 @@ body{
     button {
       background-color: #5d5b8d;
       color: #ddddf7;
-      font-size: 10px;
+      font-size: 12px;
       border: none;
+      padding: 10px;
+      border-radius: 10px;
       cursor: pointer;
       @include tablet {
         position: absolute;
@@ -326,3 +340,27 @@ body{
     }
   }
 }
+
+.chatInput {
+  padding: 9px 12px 11px;
+  margin: 5px 10px;
+  background-color: var(--compose-input-background);
+  border: 1px solid var(--compose-input-border);
+  border-radius: 8px;
+}
+
+.buttonStyle {
+  background-color: #5d5b8d;
+}
+
+.listItemStyle {
+  padding-top: -10px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  cursor: pointer;
+}
+
+.listItemStyleSelect {
+  background-color: #edf5fa;
+}
+
+

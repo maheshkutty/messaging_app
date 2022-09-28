@@ -21,6 +21,9 @@ const Chats = () => {
           <img src={Add} alt="" />
           <img src={More} alt="" />
         </div>
+        <div>
+          <p>{currentUser.displayName}</p>
+        </div>
       </div>
       <Messages />
       <Input/> 

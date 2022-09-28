@@ -6,7 +6,6 @@ import RequireAuth from "./components/RequireAuth";
 import Chats from "./components/Chats";
 import SideBar from "./components/SideBar";
 import './components/styles.scss'
-import NewChat from "./components/NewChat";
 import CustomerReq from "./components/admin/CustomerReq";
 import ProcessingReq from "./components/admin/ProcessingReq";
 
@@ -25,7 +24,6 @@ function App() {
             <Chats />
           </RequireAuth>
         } />
-        <Route path='hello' element={<NewChat />} />
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
         <Route path='admin/request' element={<CustomerReq />} />

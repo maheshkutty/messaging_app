@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 function RequireAuth({ children, adminPass }) {
     const { currentUser } = useContext(AuthContext);
     if (!currentUser) {
+        console.log("Navigate to")
         return <Navigate to="/login" />;
     }
 
