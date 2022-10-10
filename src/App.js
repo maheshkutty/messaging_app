@@ -26,8 +26,8 @@ function App() {
         } />
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
-        <Route path='admin/request' element={<CustomerReq />} />
-        <Route path='admin/process' element={<ProcessingReq />} />
+        <Route path='admin/request' element={<RequireAuth adminPass={true}><CustomerReq /></RequireAuth>} />
+        <Route path='admin/process' element={<RequireAuth adminPass={true}><ProcessingReq /></RequireAuth>} />
       </Routes>
     </BrowserRouter>
   );

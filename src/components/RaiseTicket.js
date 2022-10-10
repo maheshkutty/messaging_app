@@ -7,6 +7,7 @@ import { db } from "../firebase"
 import { ChatContext } from '../context/ChatContext';
 import { margin } from "@mui/system";
 import StatusInd from "./StatusInd";
+import * as moment from 'moment';
 
 function RaiseTicket() {
   const { currentUser } = useContext(AuthContext);
@@ -44,10 +45,10 @@ function RaiseTicket() {
           <p style={{ textAlign: "center", fontWeight: "bold", borderRight: "2px solid black" }}>Your Tickets</p>
         </div>
       </div>
-      <List sx={{paddingTop:0}}>
+      <List sx={{ paddingTop: 0 }}>
         {tickets.map((item) =>
           <ListItem key={item.id} onClick={() => selectTickets(item)} className={`listItemStyle ${data.chatId === item.id && "listItemStyleSelect"}`}>
-            <ListItemText primary={item.query} secondary={item.startTime.toMillis().toString()} />
+            <ListItemText primary={item.query} secondary={moment(item.startTime.toMillis().toString(), "x").format("DD MMM YYYY hh:mm a")} />
             {item.resolved == 0 ? <StatusInd color="orange" /> : <StatusInd color="#42ba96" />}
 
           </ListItem>

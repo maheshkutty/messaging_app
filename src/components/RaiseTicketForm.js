@@ -25,7 +25,9 @@ export default function RaiseTicketForm({ open, setOpen }) {
 			messages: []
 		}
 		console.log(payload)
-		await addDoc(collection(db, "session", currentUser.uid, "chats"), payload)
+		await setDoc(doc(db, "session", currentUser.uid), {});
+		const newCityRef = doc(collection(db, "session", currentUser.uid, "chats"));
+		await setDoc(newCityRef, payload);
 		handleClose();
 	}
 

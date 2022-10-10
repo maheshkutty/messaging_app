@@ -10,13 +10,13 @@ const AdminPanel = ({ children }) => {
   console.log(currentUser)
 
   return (
-    <Grid container sx={{ height: "100vh", background:"#f1f4f8" }} alignItems="flex-start" justifyContent="center">
+    <Grid container sx={{ height: "100vh", background: "#f1f4f8" }} alignItems="flex-start" justifyContent="center">
       <Grid item xs="12">
         <div className='navbar'>
           <span className="logo">Branch International</span>
           <div className="user">
             {/* <img src={currentUser.photoURL} alt="" /> */}
-            <span>{currentUser.displayName}</span>
+            {currentUser ? <span>{currentUser.displayName}</span> : null}
             <Link className="linkButton" to="/admin/request">Request</Link>
             <Link className="linkButton" to="/admin/process">Support</Link>
             <button onClick={() => signOut(auth)}>logout</button>

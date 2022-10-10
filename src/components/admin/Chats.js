@@ -18,6 +18,8 @@ const Chats = ({ userId }) => {
   console.log(currentUser)
 
   useEffect(() => {
+    console.log(userId)
+    console.log(data)
     if (userId) {
       const unSub = onSnapshot(doc(db, "session", userId, "chats", data.chatId), (doc) => {
         doc.exists() && setMessages(doc.data().messages);

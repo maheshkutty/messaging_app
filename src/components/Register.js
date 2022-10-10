@@ -21,16 +21,19 @@ function Register() {
   });
   const navigate = useNavigate();
 
-  const onSignUp = async ({ name, email, password }) => {
+  const onSignUp = async ({ name, email, pass }) => {
     try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
+      //const res = await createUserWithEmailAndPassword(auth, email, pass);
       const date = new Date().getTime();
-      await setDoc(doc(db, "users", res.user.uid), {
-        uid: res.user.uid,
-        name,
-        email
-      });
-      navigate("/")
+      console.log(name)
+      // await setDoc(doc(db, "users", res.user.uid), {
+      //   uid: res.user.uid,
+      //   displayName: name,
+      //   photoURL:"",
+      //   email,
+      //   type:"user"
+      // });
+      // navigate("/")
     } catch (e) {
       console.log(e)
     }
