@@ -22,12 +22,12 @@ Open https://messagebranch.netlify.app/
 **Admin**
 ```
 email: rahul@gmail.com 
-password: mahesh@123
+password: mahesh123
 ```
 
 
 **User**
 ```
-email: mahesh@gmail.com 
-password: mahesh@123
+email: shejal@gmail.com
+password: rahul123
 ```
