@@ -23,17 +23,16 @@ function Register() {
 
   const onSignUp = async ({ name, email, pass }) => {
     try {
-      //const res = await createUserWithEmailAndPassword(auth, email, pass);
+      const res = await createUserWithEmailAndPassword(auth, email, pass);
       const date = new Date().getTime();
-      console.log(name)
-      // await setDoc(doc(db, "users", res.user.uid), {
-      //   uid: res.user.uid,
-      //   displayName: name,
-      //   photoURL:"",
-      //   email,
-      //   type:"user"
-      // });
-      // navigate("/")
+      await setDoc(doc(db, "users", res.user.uid), {
+        uid: res.user.uid,
+        displayName: name,
+        photoURL: "",
+        email,
+        type: "user"
+      });
+      navigate("/")
     } catch (e) {
       console.log(e)
     }
